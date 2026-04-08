@@ -160,11 +160,14 @@ app.post('/register', async (req, res, next) => {
   if (password.length < 4)
     return res.render('register', { title: 'Регистрация', error: 'Пароль должен быть длиннее 3 символов' });
   try {
+    const { rows: cnt } = await pool.query('SELECT COUNT(*)::int AS n FROM users');
+    const role = cnt[0].n === 0 ? 'admin' : 'user';
     const hash = await bcrypt.hash(password, 10);
-    await pool.query(
-      'INSERT INTO users (username, password_hash, role) VALUES ($1, $2, $3)',
-      [username, hash, 'user']
-    );
+    await pool.query('INSERT INTO users (username, password_hash, role) VALUES ($1, $2, $3::user_role)', [
+      username,
+      hash,
+      role,
+    ]);
     res.redirect('/login?registered=1');
   } catch (e) {
     if (e.code === '23505') {
