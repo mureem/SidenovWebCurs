@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="/chat">Чат</a>
+      <a href="/login">Вход</a>
+      <a href="/register">Регистрация</a>
+    </nav>
+
+    <h1>Регистрация</h1>
+    <% if (error) { %>
+      <p class="flash err"><%= error %></p>
+    <% } %>
+
+    <form method="post" action="/register">
+      <div><input name="username" placeholder="Логин" required minlength="3" maxlength="50" autocomplete="username"></div>
+      <div><input name="password" type="password" placeholder="Пароль" required minlength="4" autocomplete="new-password"></div>
+      <div><button type="submit">Зарегистрироваться</button></div>
+    </form>
+  </div>
+</body>
+</html>

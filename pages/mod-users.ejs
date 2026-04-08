@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="/chat">Чат</a>
+      <span class="muted"><%= currentUser.username %> (<%= currentUser.role %>)</span>
+      <a href="/mod/users">Модерация</a>
+      <% if (currentUser.role === 'admin') { %><a href="/admin/users">Админ</a><% } %>
+      <form method="post" action="/logout" class="inline"><button type="submit">Выйти</button></form>
+    </nav>
+
+    <h1>Модерация</h1>
+    <% if (message) { %><p class="flash ok"><%= message %></p><% } %>
+
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Логин</th><th>Роль</th><th>Блок</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function (u) { %>
+          <tr>
+            <td><%= u.id %></td>
+            <td><%= u.username %></td>
+            <td><%= u.role %></td>
+            <td><%= u.is_blocked ? 'да' : 'нет' %></td>
+            <td>
+              <% if (u.id !== currentUser.id && u.role !== 'admin') { %>
+                <% if (!u.is_blocked) { %>
+                  <form method="post" action="/mod/block/<%= u.id %>" class="inline"><button type="submit">Блок</button></form>
+                <% } else { %>
+                  <form method="post" action="/mod/unblock/<%= u.id %>" class="inline"><button type="submit">Разблок</button></form>
+                <% } %>
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

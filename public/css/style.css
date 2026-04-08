@@ -1,0 +1,17 @@
+body { font-family: system-ui, Segoe UI, Arial, sans-serif; margin: 16px; line-height: 1.4; }
+.wrap { max-width: 900px; margin: 0 auto; }
+.nav { margin-bottom: 16px; }
+.nav a { margin-right: 12px; }
+.muted { color: #666; font-size: 0.95em; }
+.inline { display: inline; }
+textarea, input, select { width: 100%; max-width: 520px; padding: 6px; margin: 6px 0; }
+button { padding: 6px 12px; }
+.flash { padding: 8px; margin: 8px 0; border: 1px solid #ccc; }
+.flash.ok { border-color: #2d8a34; color: #2d8a34; }
+.flash.err { border-color: #b00020; color: #b00020; }
+hr { margin: 16px 0; }
+.messages { list-style: none; padding: 0; }
+.messages li { padding: 8px 0; border-top: 1px solid #eee; }
+.msg { white-space: pre-wrap; word-break: break-word; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 6px; border-bottom: 1px solid #eee; }

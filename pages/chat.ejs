@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <% if (typeof chatRefreshSec === 'number' && chatRefreshSec > 0) { %>
+  <meta http-equiv="refresh" content="<%= chatRefreshSec %>">
+  <% } %>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="/chat">Чат</a>
+      <% if (currentUser) { %>
+        <span class="muted"><%= currentUser.username %> (<%= currentUser.role %>)</span>
+        <% if (currentUser.role === 'moderator' || currentUser.role === 'admin') { %>
+          <a href="/mod/users">Модерация</a>
+        <% } %>
+        <% if (currentUser.role === 'admin') { %>
+          <a href="/admin/users">Админ</a>
+        <% } %>
+        <form method="post" action="/logout" class="inline">
+          <button type="submit">Выйти</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Вход</a>
+        <a href="/register">Регистрация</a>
+      <% } %>
+    </nav>
+
+    <h1>Общий чат</h1>
+
+    <% if (error) { %>
+      <p class="flash err"><%= error %></p>
+    <% } %>
+
+    <% if (currentUser) { %>
+      <form method="post" action="/chat/message">
+        <textarea name="body" rows="3" maxlength="2000" required></textarea>
+        <div><button type="submit">Отправить</button></div>
+      </form>
+    <% } else { %>
+      <p class="muted">Гость: только чтение. <a href="/login">Войдите</a>, чтобы писать.</p>
+    <% } %>
+
+    <hr>
+
+    <% if (messages.length === 0) { %>
+      <p class="muted">Пока нет сообщений.</p>
+    <% } else { %>
+      <ul class="messages">
+        <% messages.forEach(function (m) { %>
+          <li>
+            <div class="muted"><%= m.username %> · <%= new Date(m.created_at).toLocaleString('ru-RU') %></div>
+            <div class="msg"><%= m.body %></div>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+</body>
+</html>

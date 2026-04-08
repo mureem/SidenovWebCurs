@@ -1,0 +1,20 @@
+{
+  "name": "chat-kr",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Учебный чат: Node.js + PostgreSQL + SSR",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "pg": "^8.13.0"
+  }
+}
